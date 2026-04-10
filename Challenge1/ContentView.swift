@@ -1,23 +1,20 @@
-//
-//  ContentView.swift
-//  Challenge1
-//
-//  Created by 앤디 on 3/29/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            Tab("다트 던지기", systemImage: "flag.fill") {
+                DartView()
+            }
+            
+            Tab("동행 구하기", systemImage: "car.fill") {
+                CompanyView()
+            }
         }
-        .padding()
+        .tabBarMinimizeBehavior(.automatic)
     }
 }
+
 
 #Preview {
     ContentView()
