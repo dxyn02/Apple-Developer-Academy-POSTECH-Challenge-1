@@ -42,43 +42,46 @@ class DartMotion: ObservableObject {
     }
     
     func stopUpdates() {
-//        motion.stopDeviceMotionUpdates()
+        timer?.invalidate()
         motion.stopAccelerometerUpdates()
         print("센서 꺼짐")
     }
 }
 
+func selectRandomIndex(array: [String]) -> Int {
+    
+    let randomIndex = Int.random(in: 0..<array.count)
+    
+    return randomIndex
+}
+
 struct DartView: View {
     @State var darts: Int = 3
     @State var isDartOnPanel: Bool = false // NOTE: 이렇게 변수를 추가해본다면?
-    @State var dartScale: CGFloat = 1.0
-    @State var dartOffsetX: CGFloat = 0
-    @State var dartOffsetY: CGFloat = 0
-    @State var dartOpacity: CGFloat = 1.0 
     @StateObject var dartMotion = DartMotion()
     @State var showModal: Bool = false
     @State var gameStarted: Bool = false
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [Color("Background Gradient 1"), Color("Background Gradient 2")], startPoint: .top, endPoint: .bottom)
+            Color(.newBackground)
                 .ignoresSafeArea()
             
-            Image("q")
-                .resizable()
-                .frame(width: 1415, height: 809)
-                .position(x: 210, y: 300)
-            
             VStack {
-                StatusView(remainingDarts: $darts)
+                WeatherView(remainingDarts: $darts)
+                    .padding(.bottom, 20)
                 
-                ZStack {
-                    DartPanelView(remainingDarts: $darts, isOnPanel: $isDartOnPanel, offsetX: $dartOffsetX, offsetY: $dartOffsetY)
-                    
-                    // 여기 추가?
-                }
+                DartPanelView(remainingDarts: $darts, isOnPanel: $isDartOnPanel)
+                    .onChange(of: dartMotion.y) {
+                        if dartMotion.y >= 2.7 {
+                            dartMotion.stopUpdates()
+                            print("다트 날라감")
+                            darts -= 1
+                            isDartOnPanel = true
+                        }
+                    }
                 
-                
+                RemainingDartsView(remainingDarts: $darts)
                 
                 ZStack {
                     Rectangle()
@@ -95,7 +98,9 @@ struct DartView: View {
                     }
                     
                     if (darts == 3 && gameStarted == true) {
-                        Text("기기를 세게 흔들어 화살을 날려보세요!")
+                        Text("기기를 세게 흔들어 목적지를 정해볼까요?")
+                            .padding(.top, 11)
+                            .font(.caption)
                             .foregroundStyle(.defaultText)
                     }
                     
@@ -122,7 +127,7 @@ struct DartView: View {
                         
                     }
                     else if (darts > 0 && isDartOnPanel == true) {
-                        Button("다음 다트 던지기") {
+                        Button("다음 구슬 뽑기") {
                             isDartOnPanel = false
                             dartMotion.startAccelerometers()
                         }.controlSize(.extraLarge)
@@ -132,43 +137,6 @@ struct DartView: View {
                     
                 }
             }
-            
-            if (darts >= 0 && gameStarted == true) {
-                ArrowView(remainingDarts: $darts, isOnPanel: $isDartOnPanel)
-                    .opacity(dartOpacity)
-                    .scaleEffect(dartScale, anchor: .center)
-                    .offset(x: dartOffsetX, y: dartOffsetY)
-                    .onChange(of: dartMotion.y) {
-                        if (dartMotion.y >= 2.7) {
-                            dartMotion.stopUpdates()
-                            print("다트 날라감")
-                            withAnimation(.easeInOut(duration: 0.35)) {
-                                dartScale = 0.5
-                                dartOpacity = 0.0
-                                dartOffsetX = CGFloat(Int.random(in: -150 ... 150))
-                                dartOffsetY = CGFloat(Int.random(in: -150 ... 150))
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                                darts -= 1
-                                isDartOnPanel = true
-                            }
-                            
-                        }
-                    }
-                    .onChange(of: darts) {
-                        dartScale = 1.0
-                        dartOpacity = 1.0
-                    }
-                    .onChange(of: isDartOnPanel) {
-                        if (!isDartOnPanel) {
-                            dartOffsetX = 0
-                            dartOffsetY = 0
-                        }
-                    }
-            }
-            
-                        
-            
         }
     }
 }
