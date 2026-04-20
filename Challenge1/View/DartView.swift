@@ -3,12 +3,13 @@ import CoreMotion
 import Combine
 import Foundation
 
+@Observable
 class DartMotion: ObservableObject {
     let motion = CMMotionManager()
     var timer: Timer?
-    @Published var x: Double = 0.0
-    @Published var y: Double = 0.0
-    @Published var z: Double = 0.0
+    var x: Double = 0.0
+    var y: Double = 0.0
+    var z: Double = 0.0
     
     func startAccelerometers() {
         if self.motion.isAccelerometerAvailable {
@@ -48,19 +49,9 @@ class DartMotion: ObservableObject {
     }
 }
 
-func selectRandomIndex(array: [String]) -> Int {
-    
-    let randomIndex = Int.random(in: 0..<array.count)
-    
-    return randomIndex
-}
-
 struct DartView: View {
-    @State var darts: Int = 3
-    @State var isDartOnPanel: Bool = false // NOTE: 이렇게 변수를 추가해본다면?
-    @StateObject var dartMotion = DartMotion()
-    @State var showModal: Bool = false
-    @State var gameStarted: Bool = false
+    @State var dartMotion = DartMotion()
+    @State var dartViewModel = DartViewModel()
     
     var body: some View {
         ZStack {
@@ -68,47 +59,44 @@ struct DartView: View {
                 .ignoresSafeArea()
             
             VStack {
-                WeatherView(remainingDarts: $darts)
+                WeatherView(remainingDarts: $dartViewModel.remainingTimes)
                     .padding(.bottom, 20)
                 
-                DartPanelView(remainingDarts: $darts, isOnPanel: $isDartOnPanel)
+                PanelView(items: dartViewModel.currentPanelItems)
                     .onChange(of: dartMotion.y) {
                         if dartMotion.y >= 2.7 {
                             dartMotion.stopUpdates()
+                            dartViewModel.process()
                             print("다트 날라감")
-                            darts -= 1
-                            isDartOnPanel = true
                         }
                     }
                 
-                RemainingDartsView(remainingDarts: $darts)
+                RemainingDartsView(remainingDarts: $dartViewModel.remainingTimes)
                 
                 ZStack {
                     Rectangle()
                         .frame(width: 350, height: 100)
                         .foregroundStyle(Color.clear)
                     
-                    if (darts == 3 && gameStarted == false) {
+                    if (dartViewModel.remainingTimes == 3 && dartViewModel.isStarted == false) {
                         Button("시작하기") {
-                            gameStarted.toggle()
+                            dartViewModel.isStarted.toggle()
                             dartMotion.startAccelerometers()
                         }
                         .controlSize(.extraLarge)
                         .buttonStyle(.glass)
                     }
                     
-                    if (darts == 3 && gameStarted == true) {
+                    if (dartViewModel.remainingTimes == 3 && dartViewModel.isStarted == true) {
                         Text("기기를 세게 흔들어 목적지를 정해볼까요?")
                             .padding(.top, 11)
                             .font(.caption)
                             .foregroundStyle(.defaultText)
                     }
                     
-                    if (darts <= 0 && isDartOnPanel == true) {
+                    if (dartViewModel.remainingTimes <= 0 && dartViewModel.isShaked == true) {
                         HStack {
                             Button("다시") {
-                                darts = 3
-                                isDartOnPanel = false
                                 dartMotion.startAccelerometers()
                             }
                             .controlSize(.extraLarge)
@@ -116,19 +104,19 @@ struct DartView: View {
                             .tint(.red)
                             
                             Button("결과 보기") {
-                                showModal.toggle()
+                                dartViewModel.showModal.toggle()
                             }
                             .controlSize(.extraLarge)
                             .buttonStyle(.glassProminent)
-                            .sheet(isPresented: $showModal) {
+                            .sheet(isPresented: $dartViewModel.showModal) {
                                 ResultView().presentationDetents([.medium, .large])
                             }
                         }
                         
                     }
-                    else if (darts > 0 && isDartOnPanel == true) {
+                    else if (dartViewModel.remainingTimes > 0 && dartViewModel.isShaked == true) {
                         Button("다음 구슬 뽑기") {
-                            isDartOnPanel = false
+                            dartViewModel.isShaked = false
                             dartMotion.startAccelerometers()
                         }.controlSize(.extraLarge)
                             .buttonStyle(.glassProminent)
@@ -144,4 +132,3 @@ struct DartView: View {
 #Preview {
     DartView()
 }
-

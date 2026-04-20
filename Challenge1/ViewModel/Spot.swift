@@ -58,10 +58,10 @@ let allSpots: [Spot] = [
     Spot(region: "송도", theme: "밤 산책", name: "평화의 여신상", imageName: ["포항 평화의여신상"], description: "송도의 상징인 여신상 앞 빈티지한 가로등 아래 산책"),
     Spot(region: "송도", theme: "밤 산책", name: "송도교", imageName: ["포항 송도교"], description: "운하와 바다가 만나는 다리 위에서 즐기는 야경"),
     
-    Spot(region: "송도", theme: "심야 카페", name: "파스쿠찌", imageName: ["파스쿠찌 포항송도비치점"], description: "루프탑에서 포스코 야경 파노라마를 볼 수 있는 곳"),
-    Spot(region: "송도", theme: "심야 카페", name: "아라비카 로스터스", imageName: ["아라비카커피로스터스 송도점"], description: "해안가에서 진한 커피 향과 함께 밤바다 즐기기"),
-    Spot(region: "송도", theme: "심야 카페", name: "빈스빈스", imageName: ["빈스빈스 포항송도점"], description: "달콤한 와플과 함께 쉬어가는 해변가 대형 카페"),
-    Spot(region: "송도", theme: "심야 카페", name: "카페거리", imageName: ["포항 송도 카페거리"], description: "아무 카페나 들어가도 바닷바람을 맞을 수 있는 테라스 석"),
+    Spot(region: "송도", theme: "카페", name: "파스쿠찌", imageName: ["파스쿠찌 포항송도비치점"], description: "루프탑에서 포스코 야경 파노라마를 볼 수 있는 곳"),
+    Spot(region: "송도", theme: "카페", name: "아라비카 로스터스", imageName: ["아라비카커피로스터스 송도점"], description: "해안가에서 진한 커피 향과 함께 밤바다 즐기기"),
+    Spot(region: "송도", theme: "카페", name: "빈스빈스", imageName: ["빈스빈스 포항송도점"], description: "달콤한 와플과 함께 쉬어가는 해변가 대형 카페"),
+    Spot(region: "송도", theme: "카페", name: "카페거리", imageName: ["포항 송도 카페거리"], description: "아무 카페나 들어가도 바닷바람을 맞을 수 있는 테라스 석"),
     
     Spot(region: "송도", theme: "야식·한 잔", name: "토스트", imageName: ["포항 송도해수욕장 토스트"], description: "송도 밤바다의 전설, 설탕 뿌린 옛날 토스트와 커피"),
     Spot(region: "송도", theme: "야식·한 잔", name: "조개구이", imageName: ["포항 송도해수욕장 조개구이"], description: "파도 소리를 반찬 삼아 야외 테이블에서 즐기는 조개구이"),
@@ -79,10 +79,10 @@ let allSpots: [Spot] = [
     Spot(region: "환호·여남", theme: "밤 산책", name: "해안 산책로", imageName: ["포항 여남동 해안산책로"], description: "영일대 끝자락에서 여남까지 이어지는 한적한 바닷길"),
     Spot(region: "환호·여남", theme: "밤 산책", name: "방파제길", imageName: ["환호방파제"], description: "작은 어촌 마을의 정취가 느껴지는 짧고 조용한 길"),
     
-    Spot(region: "환호·여남", theme: "심야 카페", name: "어레인지먼트", imageName: ["어레인지먼트"], description: "압도적인 층고와 통창으로 밤바다를 감상하는 공간"),
-    Spot(region: "환호·여남", theme: "심야 카페", name: "145", imageName: ["포항 카페 145"], description: "고급스러운 인테리어와 조용한 음악이 흐르는 여남의 아지트"),
-    Spot(region: "환호·여남", theme: "심야 카페", name: "개인카페", imageName: ["포항 여남동 카페"], description: "사람들의 발길이 적은 여남 안쪽의 숨겨진 감성 카페"),
-    Spot(region: "환호·여남", theme: "심야 카페", name: "편의점", imageName: ["CU 포항환호공원점"], description: "창가 좌석에서 커피 한 잔 마시며 가성비 오션뷰 즐기기"),
+    Spot(region: "환호·여남", theme: "카페", name: "어레인지먼트", imageName: ["어레인지먼트"], description: "압도적인 층고와 통창으로 밤바다를 감상하는 공간"),
+    Spot(region: "환호·여남", theme: "카페", name: "145", imageName: ["포항 카페 145"], description: "고급스러운 인테리어와 조용한 음악이 흐르는 여남의 아지트"),
+    Spot(region: "환호·여남", theme: "카페", name: "개인카페", imageName: ["포항 여남동 카페"], description: "사람들의 발길이 적은 여남 안쪽의 숨겨진 감성 카페"),
+    Spot(region: "환호·여남", theme: "카페", name: "편의점", imageName: ["CU 포항환호공원점"], description: "창가 좌석에서 커피 한 잔 마시며 가성비 오션뷰 즐기기"),
     
     Spot(region: "환호·여남", theme: "야식·한 잔", name: "포차", imageName: ["포항 여남 횟집"], description: "갓 잡은 해산물과 함께 즐기는 로컬 바이브의 술자리"),
     Spot(region: "환호·여남", theme: "야식·한 잔", name: "방파제", imageName: ["여남방파제"], description: "차박 성지 근처에서 즐기는 소소한 간식 타임"),
@@ -100,10 +100,10 @@ let allSpots: [Spot] = [
     Spot(region: "죽도·동빈내항", theme: "밤 산책", name: "죽도시장", imageName: ["포항 죽도시장"], description: "장사가 끝난 뒤 한적하고 묘한 분위기의 시장 골목 탐방"),
     Spot(region: "죽도·동빈내항", theme: "밤 산책", name: "해도교", imageName: ["포항 해도교"], description: "운하를 가로지르는 여러 다리를 건너며 즐기는 산책"),
     
-    Spot(region: "죽도·동빈내항", theme: "심야 카페", name: "운하 뷰", imageName: ["포항운하 카페"], description: "창밖으로 흐르는 운하 물길을 보며 마시는 커피"),
-    Spot(region: "죽도·동빈내항", theme: "심야 카페", name: "노포 다방", imageName: ["죽도시장 다방"], description: "시간이 멈춘 듯한 공간에서 즐기는 색다른 경험"),
-    Spot(region: "죽도·동빈내항", theme: "심야 카페", name: "포항운하관", imageName: ["포항운하관 카페"], description: "운하 전체를 조망하며 쉴 수 있는 가장 높은 곳의 카페"),
-    Spot(region: "죽도·동빈내항", theme: "심야 카페", name: "테라스", imageName: ["동빈내항 카페"], description: "정박한 배들을 바라보며 여유를 즐기는 항구 쪽 카페"),
+    Spot(region: "죽도·동빈내항", theme: "카페", name: "운하 뷰", imageName: ["포항운하 카페"], description: "창밖으로 흐르는 운하 물길을 보며 마시는 커피"),
+    Spot(region: "죽도·동빈내항", theme: "카페", name: "노포 다방", imageName: ["죽도시장 다방"], description: "시간이 멈춘 듯한 공간에서 즐기는 색다른 경험"),
+    Spot(region: "죽도·동빈내항", theme: "카페", name: "포항운하관", imageName: ["포항운하관 카페"], description: "운하 전체를 조망하며 쉴 수 있는 가장 높은 곳의 카페"),
+    Spot(region: "죽도·동빈내항", theme: "카페", name: "테라스", imageName: ["동빈내항 카페"], description: "정박한 배들을 바라보며 여유를 즐기는 항구 쪽 카페"),
     
     Spot(region: "죽도·동빈내항", theme: "야식·한 잔", name: "야시장", imageName: ["죽도시장 야시장"], description: "다양한 길거리 음식과 활기가 넘치는 야간 미식 여행"),
     Spot(region: "죽도·동빈내항", theme: "야식·한 잔", name: "포차", imageName: ["포항 죽도어시장"], description: "시장 상인들의 활기와 신선한 해산물이 가득한 포차"),
@@ -121,10 +121,10 @@ let allSpots: [Spot] = [
     Spot(region: "이동·대잠", theme: "밤 산책", name: "광장", imageName: ["포항시청 광장"], description: "넓은 광장과 잘 정돈된 조경 사이를 걷는 도심 산책"),
     Spot(region: "이동·대잠", theme: "밤 산책", name: "이동고", imageName: ["포항 이동고등학교"], description: "번화가를 살짝 벗어나 즐기는 조용한 주택가 산책"),
     
-    Spot(region: "이동·대잠", theme: "심야 카페", name: "로스터리", imageName: ["포항 이동 로스터리 카페"], description: "커피에 진심인 바리스타들이 운영하는 이동의 카페들"),
-    Spot(region: "이동·대잠", theme: "심야 카페", name: "디저트", imageName: ["포항 철길숲 카페"], description: "산책하는 사람들을 구경하며 달콤한 디저트 즐기기"),
-    Spot(region: "이동·대잠", theme: "심야 카페", name: "프랜차이즈", imageName: ["포항 이동 대형카페"], description: "늦게까지 불이 켜져 있어 공부하거나 작업하기 좋은 곳"),
-    Spot(region: "이동·대잠", theme: "심야 카페", name: "테라스", imageName: ["포항 대잠동 테라스 카페"], description: "도심 속 정원 같은 느낌의 테라스가 있는 카페"),
+    Spot(region: "이동·대잠", theme: "카페", name: "로스터리", imageName: ["포항 이동 로스터리 카페"], description: "커피에 진심인 바리스타들이 운영하는 이동의 카페들"),
+    Spot(region: "이동·대잠", theme: "카페", name: "디저트", imageName: ["포항 철길숲 카페"], description: "산책하는 사람들을 구경하며 달콤한 디저트 즐기기"),
+    Spot(region: "이동·대잠", theme: "카페", name: "프랜차이즈", imageName: ["포항 이동 대형카페"], description: "늦게까지 불이 켜져 있어 공부하거나 작업하기 좋은 곳"),
+    Spot(region: "이동·대잠", theme: "카페", name: "테라스", imageName: ["포항 대잠동 테라스 카페"], description: "도심 속 정원 같은 느낌의 테라스가 있는 카페"),
     
     Spot(region: "이동·대잠", theme: "야식·한 잔", name: "먹자골목", imageName: ["포항 이동 먹자골목"], description: "족발부터 치킨까지, 포항에서 야식 메뉴가 가장 많은 곳"),
     Spot(region: "이동·대잠", theme: "야식·한 잔", name: "감성 펍", imageName: ["포항 철길숲 맥주"], description: "산책로 바로 옆에서 즐기는 시원한 수제 맥주 한 잔"),

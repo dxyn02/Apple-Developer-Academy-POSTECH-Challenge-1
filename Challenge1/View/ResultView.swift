@@ -67,7 +67,7 @@ struct ResultView: View {
                 .controlSize(.large)
                 
                 Button("동행 구하기") {
-                    CompanyView()
+                    
                 }
                 .buttonStyle(.glassProminent)
                 .controlSize(.large)
