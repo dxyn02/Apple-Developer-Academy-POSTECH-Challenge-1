@@ -18,6 +18,8 @@ struct WeatherView: View {
                     Text(weatherManager.condition)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .frame(width: 70)
                         .offset(y: -10)
                 }
 
