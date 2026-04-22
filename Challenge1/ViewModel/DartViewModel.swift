@@ -21,11 +21,15 @@ class DartViewModel{
     var finalSpot: Spot? = nil
     
     private let layout6: [(x: CGFloat, y: CGFloat, padding: CGFloat)] = [
-        (40, -130, 40), (-110, -60, 30), (-110, 100, 35),
-        (90, -10, 45), (110, 120, 30), (-30, 20, 40)
+        (-110, -60, 30), (-100, 115, 35), (-30, 20, 45),
+        (60, 120, 50), (90, -10, 45), (40, -130, 40)
     ]
     private let layout4: [(x: CGFloat, y: CGFloat, padding: CGFloat)] = [
         (-100, -70, 50), (80, -90, 70), (-110, 100, 65), (70, 90, 55)
+    ]
+    
+    let roundDescriptions: [String] = [
+         "마지막으로 활동을 정해보아요~", "이번엔 테마를 정할게요", "지역을 정해볼까요?"
     ]
     
     var currentPanelItems: [PanelItem] {
@@ -54,8 +58,10 @@ class DartViewModel{
             }
             
         case 1:
-            let names = Array(Set(allSpots.map { $0.name })).sorted()
-            return names.enumerated().map { index, text in
+            let filteredSpots = allSpots.filter { $0.region == selectedRegion && $0.theme == selectedTheme }
+            let names = filteredSpots.map { $0.name }
+            let safeNames = Array(names.prefix(4))
+            return safeNames.enumerated().map { index, text in
                 PanelItem(text: text, xOffset: layout4[index].x, yOffset: layout4[index].y, paddingSize: layout4[index].padding)
             }
             

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Challenge1App: App {
@@ -13,5 +14,6 @@ struct Challenge1App: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: FavoriteSpot.self)
     }
 }

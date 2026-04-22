@@ -60,7 +60,7 @@ struct DartView: View {
             
             VStack {
                 WeatherView(remainingDarts: $dartViewModel.remainingTimes)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 0)
                 
                 PanelView(items: dartViewModel.currentPanelItems)
                     .onChange(of: dartMotion.y) {
@@ -71,7 +71,7 @@ struct DartView: View {
                         }
                     }
                 
-                RemainingDartsView(remainingDarts: $dartViewModel.remainingTimes)
+                RemainingDartsView(remainingDarts: $dartViewModel.remainingTimes, dartViewModel: dartViewModel)
                 
                 ZStack {
                     Rectangle()
@@ -88,16 +88,17 @@ struct DartView: View {
                     }
                     
                     if (dartViewModel.remainingTimes == 3 && dartViewModel.isStarted == true) {
-                        Text("기기를 세게 흔들어 목적지를 정해볼까요?")
+                        Text("기기를 세게 흔들어보세요!")
                             .padding(.top, 11)
                             .font(.caption)
-                            .foregroundStyle(.defaultText)
+                            .foregroundStyle(.defaultBlack)
                     }
                     
                     if (dartViewModel.remainingTimes <= 0 && dartViewModel.isShaked == true) {
                         HStack {
                             Button("다시") {
                                 dartMotion.startAccelerometers()
+                                dartViewModel.resetGame()
                             }
                             .controlSize(.extraLarge)
                             .buttonStyle(.glassProminent)
@@ -109,18 +110,16 @@ struct DartView: View {
                             .controlSize(.extraLarge)
                             .buttonStyle(.glassProminent)
                             .sheet(isPresented: $dartViewModel.showModal) {
-                                ResultView().presentationDetents([.medium, .large])
+                                ResultView(dartViewModel: dartViewModel).presentationDetents([.medium, .large])
                             }
                         }
-                        
                     }
                     else if (dartViewModel.remainingTimes > 0 && dartViewModel.isShaked == true) {
                         Button("다음 구슬 뽑기") {
                             dartViewModel.isShaked = false
                             dartMotion.startAccelerometers()
                         }.controlSize(.extraLarge)
-                            .buttonStyle(.glassProminent)
-                            .tint(.backgroundGradient1)
+                            .buttonStyle(.glass)
                     }
                     
                 }
@@ -128,6 +127,7 @@ struct DartView: View {
         }
     }
 }
+
 
 #Preview {
     DartView()
