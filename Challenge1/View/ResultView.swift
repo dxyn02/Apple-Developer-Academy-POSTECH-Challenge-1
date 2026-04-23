@@ -12,6 +12,7 @@ struct ResultView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var currentPageIndex = 0
     var dartViewModel: DartViewModel
+    @State private var isSelecting = false
     
     @Environment(\.modelContext) var context
     @Query var favorites: [FavoriteSpot]
@@ -23,24 +24,20 @@ struct ResultView: View {
     
     var body: some View {
         VStack {
-            HeaderView()
-                .padding(.top, 30)
-                .padding(.bottom, 10)
+            //HeaderView()
             
             VStack(alignment: .leading) {
                 TabView(selection: $currentPageIndex) {
                     Image(dartViewModel.finalSpot!.imageName.first ?? "")
                         .resizable()
-                        .scaledToFit()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: 220)
                         .cornerRadius(20)
-                        .padding(20)
+                        .padding(.horizontal, 20)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
                 .frame(height: 300)
-                .padding(.top, -40)
-                
-                
                 
                 HStack(alignment: .bottom) {
                     Text(dartViewModel.finalSpot!.imageName.first ?? "")
@@ -74,10 +71,15 @@ struct ResultView: View {
             
             HStack {
                 Button("길찾기") {
-                    
+                    isSelecting = true
                 }
                 .buttonStyle(.glass)
                 .controlSize(.large)
+//                .confirmationDialog(
+//                    "어떤 앱으로 길을 찾을까요?",
+//                    isPresented: $isSelecting) { <#T##() -> View#>, message: {
+//                        Text("선택하신 앱으로 목적지까지 가는 방법을 알아볼게요."))
+//                    }
                 
                 Button("동행 구하기") {
                     
@@ -86,6 +88,7 @@ struct ResultView: View {
                 .controlSize(.large)
             }
             .frame(maxWidth: UIView.layoutFittingExpandedSize.width)
+            .padding(.bottom, 20)
         }
     }
     
@@ -106,13 +109,7 @@ struct ResultView: View {
 #Preview {
     let dummyDartViewModel = DartViewModel()
     
-    dummyDartViewModel.finalSpot = Spot(
-        region: "영일대",
-        theme: "멍때리기",
-        name: "영일교",
-        imageName: ["영일교"],
-        description: "영일대 난간에 기대어 파도 소리 듣기"
-    )
+    dummyDartViewModel.finalSpot = Spot(region: "효자·지곡", theme: "카페", name: "소디스에스프레소바", imageName: ["효자 소디스"], description: "소디스에스프레소바 음료 테이크아웃 해서 지곡 회관 앞 벤치에서 마시기")
     
     return ResultView(dartViewModel: dummyDartViewModel)
         .modelContainer(for: FavoriteSpot.self, inMemory: true)

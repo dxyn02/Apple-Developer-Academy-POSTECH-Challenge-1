@@ -16,9 +16,15 @@ struct FavoriteRowView: View {
                     .cornerRadius(10)
                     .foregroundStyle(Color(.defaultBlack))
                 
-                Text(favoriteSpot.spotName)
-                    .font(.system(size: 22))
-                    .fontWeight(.medium)
+                VStack (alignment: .leading) {
+                    Text(favoriteSpot.spotImageName)
+                        .font(.system(size: 20))
+                        .fontWeight(.medium)
+                    
+                    Text("\(favoriteSpot.spotRegion) → \(favoriteSpot.spotTheme)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
                 
                 Spacer()
                 
@@ -45,57 +51,73 @@ struct FavoriteRowView: View {
 
 
 struct FavoritesView: View {
-    @Query var favorites: [FavoriteSpot]
+    @Query(sort: \FavoriteSpot.dateAdded, order: .reverse) var favorites: [FavoriteSpot]
     @Environment(\.modelContext) var context
     
     @Binding var selectedTab: Int
-    
     var body: some View {
-        ZStack {
-            Color(.newBackground)
-                .ignoresSafeArea()
-            
-            VStack {
-                HStack {
-                    Text("저장된 활동")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 3)
-                        .foregroundStyle(Color(.defaultBlack))
-                    
-                    Spacer()
-                }
-                .padding(.horizontal, 30)
+        NavigationStack {
+            ZStack {
+                Color(.newBackground)
+                    .ignoresSafeArea()
                 
-                List {
-                    ForEach(favorites) { spot in
-                        FavoriteRowView(favoriteSpot: spot)
+                VStack {
+                    HStack {
+                        Text("저장된 활동")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .padding(.bottom, 3)
+                            .foregroundStyle(Color(.defaultBlack))
+                        
+                        Spacer()
                     }
-                    .onDelete { indexSet in
-                        for index in indexSet {
-                            context.delete(favorites[index])
+                    .padding(.horizontal, 30)
+                    
+                    List {
+                        ForEach(favorites) { spot in
+                            let destinationVM = createViewModel(favoriteSpot: spot)
+                            NavigationLink {
+                                ResultView(dartViewModel: destinationVM)
+                            } label: {
+                                FavoriteRowView(favoriteSpot: spot)
+                            }
+                            //.listRowBackground(Color.clear)
+                        }
+                        .onDelete { indexSet in
+                            for index in indexSet {
+                                context.delete(favorites[index])
+                            }
                         }
                     }
+                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 50)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 30))
-                .padding(.horizontal, 20)
-                .padding(.bottom, 50)
-            }
-            
-            if favorites.isEmpty {
-                VStack(spacing: 20) {
-                    Text("아직 저장된 활동이 없어요.")
-                        .font(.subheadline)
-                    
-                    Button("오늘 밤 뭐하지?") {
-                        selectedTab = 0
+                
+                if favorites.isEmpty {
+                    VStack(spacing: 20) {
+                        Text("아직 저장된 활동이 없어요.")
+                            .font(.subheadline)
+                        
+                        Button("오늘 밤 뭐하지?") {
+                            selectedTab = 0
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.backgroundGradient2)
+                        .foregroundStyle(Color(.defaultBlack))
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.backgroundGradient2)
-                    .foregroundStyle(Color(.defaultBlack))
                 }
             }
         }
+        
+    }
+    
+    func createViewModel(favoriteSpot: FavoriteSpot) -> DartViewModel {
+        let destinationViewModel: DartViewModel = DartViewModel()
+        
+        destinationViewModel.finalSpot = allSpots.first { $0.name == favoriteSpot.spotName && $0.region == favoriteSpot.spotRegion }
+        
+        return destinationViewModel
     }
 }
 
